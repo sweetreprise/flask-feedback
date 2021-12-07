@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-primary justify-content-between ">
+        <div class="container">
+          <a href="/" class="navbar-brand text-light">Flask Feedback</a>
+          <ul class="nav navbar-nav flex-row float-right">
+            {% if session['current_user'] %}
+            <li class="nav-item">
+              <a class="nav-link pr-3 text-light" href="/logout">Logout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 text-light" href="/users/{{ session['current_user'] }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-3 text-light" href="/users/{{session['current_user']}}/feedback/add">Feedback</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link pr-3 text-light" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="/register">Sign up</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+
+    <div class="container">
+        {% for category, msg in get_flashed_messages(with_categories=True) %}
+            <div class="alert alert-{{ category }}">{{ msg }}</div>
+        {% endfor %}
+    </div>
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

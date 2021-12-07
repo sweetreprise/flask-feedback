@@ -1,0 +1,6 @@
+body .feedback {
+    border: 1px solid #ccc;
+    width: 400px;
+    margin: 1em auto;
+    padding: 0.5em;
+}
